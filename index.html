@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>思维引擎关于蒙古国乌兰巴托上门服务O2O平台（第一版）需求对齐清单</title>
+<style>
+  :root{
+    --ink:#16202E; --ink-2:#51607A; --ink-3:#8B98AD;
+    --paper:#EBEEF3; --card:#FFFFFF; --line:#DCE1EA; --line-2:#EEF1F5;
+    --th:#2C3A4E;
+    --accent:#1F5FA6; --accent-d:#184C86; --accent-soft:#EAF1FA;
+    --high:#B23A2E; --high-bg:#FBEAE7; --high-edge:#EEC3BC;
+    --mid:#9A6B17;  --mid-bg:#FCF5E5;  --mid-edge:#ECDBAE;
+    --low:#2C8A45;  --low-bg:#EAF6EE;  --low-edge:#BFE0CB;
+    --shadow:0 1px 2px rgba(22,32,46,.05), 0 8px 24px rgba(22,32,46,.06);
+    --sans:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth} html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+
+  .hero{background:var(--ink);color:#fff;padding:32px 24px 28px}
+  .hero .wrap{max-width:1080px;margin:0 auto}
+  .eyebrow{font-size:12.5px;letter-spacing:.05em;color:#9FB4D6}
+  .hero h1{margin:.4em 0 .25em;font-size:26px;font-weight:700;letter-spacing:-.01em}
+  .hero .meta{color:#C3CDDC;font-size:13.5px;display:flex;flex-direction:column;gap:3px;max-width:760px}
+  .hero .meta b{color:#fff;font-weight:600}
+
+  .bar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.93);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+  .bar .wrap{max-width:1080px;margin:0 auto;padding:9px 24px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .legend{display:flex;gap:7px;flex-wrap:wrap}
+  .st{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
+  .st-ok{background:var(--low-bg);color:var(--low)} .st-open{background:var(--accent-soft);color:var(--accent-d)}
+  .st-risk{background:var(--high-bg);color:var(--high)} .st-base{background:#EDF0F5;color:var(--ink-2)}
+  .st-cfg{background:#EFE9F7;color:#6B4AA0}
+  .bar .btns{margin-left:auto}
+  .btn{font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink);padding:7px 14px;border-radius:8px;cursor:pointer}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{background:var(--accent-d)}
+  .btn:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  main{max-width:1080px;margin:0 auto;padding:24px 24px 64px}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin-bottom:18px;box-shadow:var(--shadow)}
+  .toc h2{margin:0 0 10px;font-size:13px;color:var(--ink-3);letter-spacing:.04em}
+  .toc ol{margin:0;padding:0;list-style:none;columns:3;column-gap:24px;font-size:13.5px}
+  .toc li{margin:3px 0;break-inside:avoid}
+  .toc a{color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:baseline}
+  .toc a:hover{color:var(--accent-d)}
+  .toc .n{font-family:var(--mono);font-size:11px;color:var(--accent-d);min-width:20px}
+
+  .principle{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:18px}
+  .cl{border-radius:12px;padding:15px 17px;font-size:14px}
+  .cl .t{font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .cl-blue{background:var(--accent-soft);border:1px solid #C4D7EE;color:#173e69} .cl-blue .t{color:var(--accent-d)}
+  .cl-green{background:var(--low-bg);border:1px solid var(--low-edge);color:#1f5e32} .cl-green .t{color:var(--low)}
+  .cl-yellow{background:var(--mid-bg);border:1px solid var(--mid-edge);color:#6b4d12} .cl-yellow .t{color:var(--mid)}
+  .cl-red{background:var(--high-bg);border:1px solid var(--high-edge);color:#7d2a20} .cl-red .t{color:var(--high)}
+  .cl b{color:inherit}
+
+  .change{background:#fff;border:1px solid var(--mid-edge);border-left:4px solid var(--mid);border-radius:11px;padding:15px 17px;margin-bottom:22px}
+  .change h3{margin:0 0 8px;font-size:14px;color:var(--mid)}
+  .change ul{margin:0;padding-left:20px;font-size:13.5px;color:var(--ink-2)} .change li{margin:3px 0} .change b{color:var(--ink)}
+
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 20px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .sec.star{border-color:#C9B8E6;box-shadow:0 0 0 1px #D9CCEF inset, var(--shadow)}
+  .sh{display:flex;align-items:flex-start;gap:12px;margin-bottom:4px}
+  .sn{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;background:var(--ink);min-width:32px;height:26px;border-radius:7px;display:grid;place-items:center;flex:none;margin-top:2px}
+  .sec.star .sn{background:#6B4AA0}
+  .sh h2{margin:0;font-size:18.5px;font-weight:650;letter-spacing:-.005em;flex:1}
+  .sh .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px}
+  .lead{color:var(--ink-2);font-size:14px;margin:4px 0 12px 44px}
+  .body{margin-left:44px}
+  h3.sub{font-size:15px;font-weight:650;margin:18px 0 2px;padding-left:11px;border-left:4px solid var(--accent)}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 6px;table-layout:fixed}
+  th,td{padding:9px 12px;text-align:left;vertical-align:top;word-break:break-word;border-bottom:1px solid var(--line-2)}
+  th{background:var(--th);color:#fff;font-size:12.5px;font-weight:600;border-bottom:none}
+  thead th:first-child{border-top-left-radius:8px} thead th:last-child{border-top-right-radius:8px}
+  tbody tr:nth-child(even) td{background:#FAFBFC}
+  td.k{font-weight:600;color:var(--ink);white-space:nowrap}
+  td .y{color:var(--low);font-weight:600} td .n{color:var(--high);font-weight:600}
+  .rec{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--accent);color:#fff}
+  .recl{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--low-bg);color:var(--low);border:1px solid var(--low-edge)}
+  .no2{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:#EEF1F5;color:var(--ink-3)}
+  .lv{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px}
+  .lv-h{background:var(--high-bg);color:var(--high)} .lv-m{background:var(--mid-bg);color:var(--mid)} .lv-l{background:var(--low-bg);color:var(--low)}
+  .cfgtag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#EFE9F7;color:#6B4AA0}
+
+  .callout{border-radius:10px;padding:12px 15px;font-size:13.5px;margin:10px 0 14px}
+  .callout.green{background:var(--low-bg);border:1px solid var(--low-edge);color:#1f5e32}
+  .callout.yellow{background:var(--mid-bg);border:1px solid var(--mid-edge);color:#6b4d12}
+  .callout.red{background:var(--high-bg);border:1px solid var(--high-edge);color:#7d2a20}
+  .callout.blue{background:var(--accent-soft);border:1px solid #C4D7EE;color:#173e69}
+  .callout b{color:inherit}
+
+  .foot{max-width:1080px;margin:0 auto;padding:0 24px 56px;color:var(--ink-3);font-size:12px;line-height:1.7}
+  .foot b{color:var(--ink-2)}
+  #top{position:fixed;right:18px;bottom:18px;z-index:40;background:var(--ink);color:#fff;border:none;width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s;box-shadow:var(--shadow)}
+  #top.show{opacity:.9;pointer-events:auto}
+
+  @media (max-width:780px){ .toc ol{columns:1} .lead,.body{margin-left:0} .hero h1{font-size:21px} }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto} html{scroll-behavior:auto}}
+  @media print{
+    .bar,.toc,#top{display:none!important}
+    body{background:#fff} .sec,.change,.cl{box-shadow:none;break-inside:avoid}
+    tr,thead{break-inside:avoid}
+    .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 14px}
+    .hero .eyebrow,.hero .meta{color:#444} .sn{background:#000!important} th{background:#222!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">思维引擎 · 蒙古国乌兰巴托上门服务O2O平台 · 开发需求对照清单 · v0.1</div>
+    <h1>蒙古国乌兰巴托上门服务O2O平台 · 第一版</h1>
+    <div class="meta">
+      <span><b>适用范围：</b>客户沟通 · 产品原型 · 技术实现 · 风险对齐 · 合同边界 · 开发报价</span>
+      <span><b>当前状态：</b>包含已确认项与待确认项，另外蒙古国的资质 / 法律 / 税务 / 支付等内容须客户在当地核实。</span>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="legend">
+      <span class="st st-ok">✓ 已确认</span>
+      <span class="st st-open">◇ 待确认</span>
+      <span class="st st-base">* 必做</span>
+      <span class="st st-cfg">⚙ 可配置</span>
+      <span class="st st-risk">⚠ 高风险</span>
+    </div>
+    <div class="btns"><button class="btn primary" onclick="window.print()">打印 / 存为 PDF</button></div>
+  </div>
+</div>
+
+<main>
+
+  <!-- 三条核心原则 -->
+  <div class="principle">
+    <div class="cl cl-blue">
+      <div class="t">上门服务O2O平台定位</div>
+      <div>本平台是蒙古国乌兰巴托的上门服务<b>信息平台</b>。用户在平台选定服务与个体商户后下单，然后由个体商户<b>本人</b>提供服务。平台提供信息展示、订单管理、支付接入、人工审核、投诉处理、退款协助与财务记录能力。</div>
+    </div>
+    <div class="cl cl-green">
+      <div class="t">⚙ 可配置或优化规则</div>
+      <div>具体规则，最后由客户与蒙古国<b>法务、税务、监管方</b>确认后配置。</div>
+    </div>
+    <div class="cl cl-yellow">
+      <div class="t">开发方责任边界</div>
+      <div>开发方负责将当地法务、监管方与客户确认后的要求，落实为<b>系统配置、审核流程、下单规则、日志记录与后台管理能力</b>。</div>
+    </div>
+  </div>
+
+  <!-- 01 边界总览 -->
+  <section class="sec" id="s1">
+    <div class="sh"><div class="sn">01</div><h2>项目边界总览<div class="tags"><span class="st st-ok">✓ 已确认</span></div></h2></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:14%">对照项</th><th style="width:24%">当前确认</th><th style="width:28%">第一版建议</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="k">市场范围</td><td>乌兰巴托</td><td>第一版仅做乌兰巴托</td><td>第一版不做全国，不增加履约、安全、客服、结算与本地合规复杂度。</td></tr>
+          <tr><td class="k">平台性质</td><td>信息平台 + 交易辅助</td><td>本平台不默认成为服务提供方</td><td>平台连接用户与个体商户，个体商户才是服务提供方。</td></tr>
+          <tr><td class="k">服务主体</td><td>个体服务者本人</td><td>个体商户即本人</td><td>不按平台派员工处理。</td></tr>
+          <tr><td class="k">订单模式</td><td>用户选择服务后下单</td><td>先选个体商户，再选服务项目并下单</td><td>第一版不做多人报价、平台自动派单。</td></tr>
+          <tr><td class="k">服务地点</td><td>用户指定位置</td><td>地点类型自动配置</td><td>住宅、酒店、办公室、商铺、公共场所等均可配置。</td></tr>
+          <tr><td class="k">服务类目</td><td>本地生活服务，包含正规按摩</td><td>人工审核配置</td><td>正规按摩是正常第三产业服务，但是还须更细的资质与边界配置。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 02 入口端与基础设施 -->
+  <section class="sec" id="s2">
+    <div class="sh"><div class="sn">02</div><h2>入口端与基础设施<div class="tags"><span class="st st-ok">✓ 已确认</span></div></h2></div>
+    <div class="body">
+      <h3 class="sub">2.1　三类入口端网页版</h3>
+      <table>
+        <thead><tr><th style="width:16%">入口端</th><th style="width:14%">第一版</th><th style="width:40%">核心用途</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="k">用户端</td><td>网页版</td><td>注册登录、浏览服务、选个体商户、下单、支付、确认、评价、投诉</td><td>第二版可扩展微信小程序或其它入口端。</td></tr>
+          <tr><td class="k">个体商户端</td><td>网页版</td><td>入驻、提交资料、设置服务、改价、接单、完成服务、查看收入</td><td>个人商户使用，不作为员工管理。</td></tr>
+          <tr><td class="k">运营端</td><td>网页版</td><td>人工审核、类目管理、投诉退款处理、结算异常处理、日志查看</td><td>必须有权限控制与操作日志。</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">2.2　登录方式</h3>
+      <table>
+        <thead><tr><th style="width:20%">对象</th><th style="width:34%">第一版登录方式</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="k">用户</td><td>蒙古国手机号验证登录</td><td>手机号 + 验证码登录。</td></tr>
+          <tr><td class="k">个体商户</td><td>蒙古国手机号验证登录</td><td>手机号 + 验证码登录，手机号用于登录、通知、接单、追责等。</td></tr>
+          <tr><td class="k">运营人员</td><td>账号密码 + 手机号验证</td><td>运营端权限更高，登录应该比普通用户更严格。</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">2.3　蒙古国公司需准备的基础条件</h3>
+      <table>
+        <thead><tr><th style="width:26%">准备项</th><th style="width:16%">是否需要</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td class="k">网络域名</td><td><span class="y">需要</span></td><td>网页访问、接口访问、支付回调、短信回调、税务接口回调。</td></tr>
+          <tr><td class="k">云服务器</td><td><span class="y">需要</span></td><td>部署三端、后端服务与数据库。</td></tr>
+          <tr><td class="k">固定网络地址</td><td><span class="y">需要</span></td><td>支付机构、短信服务商、税务接口可能要求固定地址或白名单。</td></tr>
+          <tr><td class="k">电信与短信服务</td><td><span class="y">需要</span></td><td>蒙古国手机号验证码。</td></tr>
+          <tr><td class="k">支付机构商户能力</td><td><span class="y">需要</span></td><td>在线支付、分账、退款、对账。</td></tr>
+          <tr><td class="k">备案 / 登记 / 许可</td><td><span class="y">需要</span></td><td>由蒙古国公司与当地法务、监管方、云服务商、电信、支付机构确认。</td></tr>
+        </tbody>
+      </table>
+      <div class="callout yellow"><b>责任边界：</b>开发方可配合部署与接口联调，但域名、云服务器、固定网络地址、电信与短信、支付商户能力，以及当地要求的备案 / 登记 / 许可，由<b>蒙古国公司自备</b>。</div>
+    </div>
+  </section>
+
+  <!-- 03 语言 -->
+  <section class="sec" id="s3">
+    <div class="sh"><div class="sn">03</div><h2>语言与内容策略<div class="tags"><span class="st st-ok">✓ 已确认</span></div></h2></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:14%">阶段</th><th style="width:22%">语言安排</th><th style="width:30%">目的</th><th>风险控制</th></tr></thead>
+        <tbody>
+          <tr><td class="k">第一阶段</td><td>先用英文开发</td><td>字段、接口、状态、开发沟通保持稳定</td><td>字段与状态名先统一，不频繁变动。</td></tr>
+          <tr><td class="k">第二阶段</td><td>中文辅助对照</td><td>便于中方团队、客户、报价、合同与需求评审</td><td>中文必须讲清业务含义，不只做字面翻译。</td></tr>
+          <tr><td class="k">第三阶段</td><td>翻译西里尔蒙古文</td><td>面向蒙古国本地用户与个体商户</td><td>关键条款须由精通业务与法律语境者审核。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">3.1　严禁误译的内容</h3>
+      <table>
+        <thead><tr><th style="width:38%">内容</th><th>为什么重要</th></tr></thead>
+        <tbody>
+          <tr><td class="k">平台不是默认服务提供方</td><td>影响平台责任边界。</td></tr>
+          <tr><td class="k">个体商户本人提供服务</td><td>影响冒名、转单、投诉与结算责任。</td></tr>
+          <tr><td class="k">正规按摩服务边界</td><td>影响服务理解、投诉处理与合规表达。</td></tr>
+          <tr><td class="k">退款规则</td><td>影响用户纠纷与资金处理。</td></tr>
+          <tr><td class="k">税务责任说明</td><td>影响平台是否被误解为代缴税方或销售主体。</td></tr>
+          <tr><td class="k">隐私政策</td><td>涉及手机号、身份资料、位置、订单与投诉记录。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 04 币种 -->
+  <section class="sec" id="s4">
+    <div class="sh"><div class="sn">04</div><h2>币种与金额规则<div class="tags"><span class="st st-ok">✓ 已确认</span></div></h2></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:18%">项目</th><th style="width:28%">第一版规则</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="k">付款币种</td><td>蒙古图格里克</td><td>用户实际付款使用蒙古图格里克。</td></tr>
+          <tr><td class="k">记账币种</td><td>蒙古图格里克</td><td>订单、退款、平台费、商户应收均按蒙古图格里克记账。</td></tr>
+          <tr><td class="k">结算币种</td><td>蒙古图格里克</td><td>向个体商户结算使用蒙古图格里克。</td></tr>
+          <tr><td class="k">其他币种</td><td>可作参考价展示</td><td>税务合规确认前，不涉及跨境支付、外汇、退款汇差。</td></tr>
+        </tbody>
+      </table>
+      <div class="callout green"><b>建议默认：</b>第一版只做蒙古图格里克实付、记账与结算。其他币种最多作页面参考价，不进入支付与财务账本。</div>
+    </div>
+  </section>
+
+  <!-- 05 定价 -->
+  <section class="sec" id="s5">
+    <div class="sh"><div class="sn">05</div><h2>服务定价方式<div class="tags"><span class="st st-ok">✓ 已确认</span></div></h2></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:18%">对照项</th><th style="width:30%">第一版规则</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="k">平台角色</td><td>提供参考价范围</td><td>不做绝对统一定价，避免平台控制力过强。</td></tr>
+          <tr><td class="k">个体商户角色</td><td>在参考价范围内修改</td><td>保留个体商户独立经营属性。</td></tr>
+          <tr><td class="k">订单金额</td><td>用户下单时锁定</td><td>防止服务后随意加价。</td></tr>
+          <tr><td class="k">特殊改价</td><td>必须用户二次确认</td><td>如增加服务内容、延长时间、变更地点。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">5.1　价格争议处理</h3>
+      <table>
+        <thead><tr><th style="width:20%">风险</th><th style="width:34%">触发条件</th><th>处理建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">现场加价</td><td>服务开始后临时增加费用</td><td>任何加价必须在平台内由用户确认。</td></tr>
+          <tr><td class="k">低价诱导</td><td>个体商户标低价、现场再加价</td><td>设置价格范围、投诉规则与违规处罚。</td></tr>
+          <tr><td class="k">平台控制力过强</td><td>平台完全统一定价</td><td>采用参考价范围，个体商户可在范围内自行修改。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 06 订单流程 -->
+  <section class="sec" id="s6">
+    <div class="sh"><div class="sn">06</div><h2>订单流程<div class="tags"><span class="st st-ok">✓ 已确认</span></div></h2></div>
+    <div class="body">
+      <h3 class="sub">6.1　第一版最短链路</h3>
+      <table>
+        <thead><tr><th style="width:12%">步骤</th><th style="width:30%">用户动作</th><th style="width:24%">个体商户动作</th><th>平台动作</th></tr></thead>
+        <tbody>
+          <tr><td class="k">第一步</td><td>选择服务类目</td><td>—</td><td>展示类目与个体商户列表。</td></tr>
+          <tr><td class="k">第二步</td><td>查看商户资料、价格、评价、服务范围</td><td>—</td><td>展示认证状态与可服务信息。</td></tr>
+          <tr><td class="k">第三步</td><td>选择服务、时间、地点</td><td>—</td><td>生成订单。</td></tr>
+          <tr><td class="k">第四步</td><td>提交订单</td><td>收到订单提醒</td><td>记录订单与状态日志。</td></tr>
+          <tr><td class="k">第五步</td><td>等待接单</td><td>接单或拒单</td><td>接单后才展示完整地址。</td></tr>
+          <tr><td class="k">第六步</td><td>接受服务</td><td>本人到场并完成服务</td><td>记录服务开始与完成。</td></tr>
+          <tr><td class="k">第七步</td><td>确认完成、评价、投诉或退款</td><td>查看订单与收入</td><td>处理投诉、退款与结算记录。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">6.2　第一版订单状态</h3>
+      <table>
+        <thead><tr><th style="width:16%">状态</th><th style="width:38%">含义</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="k">待确认</td><td>已下单，等待个体商户确认</td><td>不展示完整地址。</td></tr>
+          <tr><td class="k">已接单</td><td>个体商户确认提供服务</td><td>接单后展示完整地址。</td></tr>
+          <tr><td class="k">已拒单</td><td>个体商户拒绝订单</td><td>订单关闭或用户重选。</td></tr>
+          <tr><td class="k">服务中</td><td>服务已开始</td><td>需状态记录。</td></tr>
+          <tr><td class="k">已完成</td><td>服务完成</td><td>进入评价、投诉或结算。</td></tr>
+          <tr><td class="k">退款中</td><td>用户申请退款</td><td>运营端可介入。</td></tr>
+          <tr><td class="k">争议中</td><td>出现投诉或责任争议</td><td>须查看订单日志、记录与证据。</td></tr>
+          <tr><td class="k">已关闭</td><td>流程结束</td><td>保存必要记录。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 07 支付清算 -->
+  <section class="sec" id="s7">
+    <div class="sh"><div class="sn">07</div><h2>支付与清算<div class="tags"><span class="st st-open">◇ 待确认</span></div></h2></div>
+    <p class="lead">决定了支付接入、对账逻辑与数据库设计，并联动第 08 节税务。</p>
+    <div class="body">
+      <h3 class="sub">7.1　清算方案对照</h3>
+      <table>
+        <thead><tr><th style="width:22%">选项</th><th style="width:30%">资金路径</th><th style="width:14%">平台收入</th><th style="width:20%">风险</th><th>建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">选项1</td><td>用户在线支付，本地持牌支付机构完成收款、分账、退款</td><td>中介费 + 平台服务费</td><td>平台不长期沉淀资金，风险较低，需要对接本地支付机构</td><td><span class="rec">推荐</span></td></tr>
+          <tr><td class="k">选项2</td><td>用户付款进入平台账户，平台代收再向个体商户结算</td><td>扣除中介费 + 平台服务费</td><td>资金沉淀、二次清算、备付金、审计</td><td><span class="no2">不默认</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout red"><b>风险提醒：</b>如果平台代收后再结算，就不能再简单按信息中介平台处理，需要单独做支付合规、二次清算、资金隔离、退款备付、对账审计、反洗钱、税务合规与结算规则设计。</div>
+      <h3 class="sub">7.2　第一版财务记录字段</h3>
+      <table>
+        <thead><tr><th style="width:26%">记录项</th><th style="width:14%">是否需要</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td class="k">订单总金额</td><td><span class="y">需要</span></td><td>付款与退款依据。</td></tr>
+          <tr><td class="k">平台中介费</td><td><span class="y">需要</span></td><td>平台收入依据。</td></tr>
+          <tr><td class="k">平台服务费</td><td><span class="y">需要</span></td><td>平台收入依据。</td></tr>
+          <tr><td class="k">个体商户应收</td><td><span class="y">需要</span></td><td>结算依据。</td></tr>
+          <tr><td class="k">支付状态</td><td><span class="y">需要</span></td><td>确认是否付款成功。</td></tr>
+          <tr><td class="k">退款状态</td><td><span class="y">需要</span></td><td>处理退款与争议。</td></tr>
+          <tr><td class="k">结算状态</td><td><span class="y">需要</span></td><td>确认是否已向商户结算。</td></tr>
+          <tr><td class="k">支付回调原始记录</td><td><span class="y">需要</span></td><td>排查重复回调、失败回调与支付争议。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 08 税务 -->
+  <section class="sec" id="s8">
+    <div class="sh"><div class="sn">08</div><h2>税务与凭证<div class="tags"><span class="st st-open">◇ 待确认</span></div></h2></div>
+    <div class="body">
+      <div class="callout green"><b>第一版建议：</b>信息中介平台采用「各开各的、各负其责」。个体商户对自己的服务收入负责，平台对自己的中介费与平台服务费负责，<b>平台不为个体商户代缴税款</b>。</div>
+      <table>
+        <thead><tr><th style="width:24%">选项</th><th style="width:34%">含义</th><th style="width:22%">风险</th><th>建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">各开各的</td><td>个体商户处理服务收入凭证，平台处理平台费用凭证</td><td>个体商户可能不处理凭证</td><td><span class="rec">第一版推荐</span></td></tr>
+          <tr><td class="k">平台技术协助开具</td><td>平台接入电子税票接口，协助商户完成技术操作</td><td>需授权、失败重试、退款冲正，可能加重平台责任</td><td><span class="no2">第二版谨慎</span></td></tr>
+          <tr><td class="k">平台统一向用户开具</td><td>平台对用户开服务凭证</td><td>平台可能被理解为销售主体</td><td><span class="no2">不建议</span></td></tr>
+          <tr><td class="k">平台代缴税款</td><td>平台替商户处理税款</td><td>平台责任过重</td><td><span class="no2">不建议</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 09 商户审核 -->
+  <section class="sec" id="s9">
+    <div class="sh"><div class="sn">09</div><h2>个体商户审核<div class="tags"><span class="st st-ok">✓ 已确认</span><span class="st st-base">● 必做</span></div></h2></div>
+    <div class="body">
+      <h3 class="sub">9.1　基础审核材料</h3>
+      <table>
+        <thead><tr><th style="width:22%">审核项</th><th style="width:24%">第一版要求</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td class="k">真实姓名</td><td>必须提交</td><td>确认服务主体。</td></tr>
+          <tr><td class="k">蒙古国手机号</td><td>必须验证</td><td>登录、通知、追责。</td></tr>
+          <tr><td class="k">身份资料</td><td>必须提交并人工审核</td><td>防止虚假入驻。</td></tr>
+          <tr><td class="k">展示照片</td><td>建议提交</td><td>方便用户确认上门人。</td></tr>
+          <tr><td class="k">从业 / 资质材料</td><td>按服务类目配置</td><td>正规按摩等高关注类目可要求额外材料。</td></tr>
+          <tr><td class="k">收款账户</td><td>必须提交</td><td>用于结算。</td></tr>
+          <tr><td class="k">税务声明</td><td>必须提交</td><td>明确商户自行负责税务。</td></tr>
+          <tr><td class="k">服务区域</td><td>必须设置</td><td>限制可接单范围。</td></tr>
+          <tr><td class="k">服务类目</td><td>必须审核</td><td>决定是否允许上线。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">9.2　本人到场规则</h3>
+      <div class="callout red"><b>第一版强制：</b>必须个体商户本人到场。不得冒名、不得转单、不得结伴代替服务。</div>
+      <table>
+        <thead><tr><th style="width:24%">禁止事项</th><th style="width:34%">风险</th><th>处理建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">冒名上门</td><td>用户安全与责任无法确认</td><td>一经确认，限制接单或冻结个体商户账号。</td></tr>
+          <tr><td class="k">转单给他人</td><td>平台人工审核失效</td><td>禁止。</td></tr>
+          <tr><td class="k">结伴</td><td>用户预期与现场安全风险上升</td><td>禁止，除非监管另行允许。</td></tr>
+          <tr><td class="k">使用他人收款账户</td><td>结算主体不清</td><td>个体商户账号标记异常并人工审核。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 可配置类目（星标） -->
+  <section class="sec star" id="s10">
+    <div class="sh"><div class="sn">10</div><h2>服务类目可配置规则<div class="tags"><span class="st st-cfg">⚙ 可配置</span><span class="st st-base">● 必做</span></div></h2></div>
+    <p class="lead">规则由法务 / 监管口径确认后在后台配置，开发方仅设计后台管理。</b></p>
+    <div class="body">
+      <div class="callout blue"><b>正规按摩定位：</b>属于正规第三产业。平台仅支持合法合规的正规按摩服务，不支持任何超出正规范围的内容；具体监管要求由蒙古国当地法务、税务、监管方确认。</div>
+
+      <h3 class="sub">10.1　可配置项</h3>
+      <table>
+        <thead><tr><th style="width:18%">配置项</th><th style="width:46%">可配置内容</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td class="k">类目是否开启</td><td>开启 / 关闭 / 仅指定商户开放</td><td>监管确认前后灵活调整。</td></tr>
+          <tr><td class="k">允许服务地点</td><td>住宅 / 酒店 / 办公室 / 商铺 / 公共经营场所 / 其他指定地点</td><td>不同地点风险不同，按法务与监管要求配置。</td></tr>
+          <tr><td class="k">允许服务时间</td><td>全天 / 白天 / 指定时间段 / 禁止夜间</td><td>控制安全与投诉风险。</td></tr>
+          <tr><td class="k">从业资料要求</td><td>无额外材料 / 培训证明 / 从业证明 / 执照 / 其他监管材料</td><td>按当地合规结果设置。</td></tr>
+          <tr><td class="k">审核方式</td><td>普通审核 / 加强审核 / 人工复核 / 定期复审</td><td>控制高关注类目。</td></tr>
+          <tr><td class="k">服务内容模板</td><td>服务名称 / 时长 / 说明 / 边界 / 价格范围</td><td>避免服务内容表达混乱。</td></tr>
+          <tr><td class="k">下单确认</td><td>普通确认 / 加强确认 / 地点确认 / 服务边界确认</td><td>减少用户与商户理解不一致。</td></tr>
+          <tr><td class="k">禁止内容配置</td><td>禁止词 / 禁止图片 / 禁止服务描述 / 禁止诱导线下交易</td><td>防止内容偏离正规范围。</td></tr>
+          <tr><td class="k">投诉分类</td><td>价格争议 / 服务不符 / 冒名服务 / 迟到 / 骚扰 / 安全问题 / 其他</td><td>便于运营端分类处理。</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">10.2　开发要求</h3>
+      <table>
+        <thead><tr><th style="width:20%">模块</th><th style="width:16%">第一版要求</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="k">类目开关</td><td><span class="y">支持</span></td><td>监管确认前可关，确认后可开。</td></tr>
+          <tr><td class="k">地点类型开关</td><td><span class="y">支持</span></td><td>是否允许住宅、酒店、办公室、商铺等，后台配置。</td></tr>
+          <tr><td class="k">时间规则开关</td><td><span class="y">支持</span></td><td>是否限制夜间服务，后台配置。</td></tr>
+          <tr><td class="k">资质材料配置</td><td><span class="y">支持</span></td><td>按监管要求配置需上传哪些资料。</td></tr>
+          <tr><td class="k">人工审核</td><td><span class="y">支持</span></td><td>高关注类目需运营端人工审核。</td></tr>
+          <tr><td class="k">服务详情</td><td><span class="y">支持</span></td><td>展示服务内容、时长、价格、适用范围。</td></tr>
+          <tr><td class="k">下单确认</td><td><span class="y">支持</span></td><td>用户确认服务内容、地点、时间、价格。</td></tr>
+          <tr><td class="k">投诉入口</td><td><span class="y">支持</span></td><td>用户与商户都可投诉。</td></tr>
+          <tr><td class="k">订单留痕</td><td><span class="y">支持</span></td><td>记录下单、接单、开始、完成、退款、投诉。</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">10.3　页面必须展示 / 确认</h3>
+      <table>
+        <thead><tr><th style="width:22%">页面位置</th><th>必须展示或确认的内容</th></tr></thead>
+        <tbody>
+          <tr><td class="k">服务详情页</td><td>服务名称、内容、时长、价格、服务地点范围、服务时间范围、商户认证状态。</td></tr>
+          <tr><td class="k">下单确认页</td><td>服务内容、地点、时间、订单金额、取消规则、投诉入口。</td></tr>
+          <tr><td class="k">个体商户入驻页</td><td>承诺本人服务、正规服务、遵守平台规则、不得冒名 / 转单 / 结伴。</td></tr>
+          <tr><td class="k">运营审核页</td><td>身份资料、手机号、从业资料、服务说明、价格范围、服务地点与时间。</td></tr>
+          <tr><td class="k">投诉页</td><td>可选：服务不符、价格争议、迟到、冒名、骚扰、安全问题、其他。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 11 位置数据 -->
+  <section class="sec" id="s11">
+    <div class="sh"><div class="sn">11</div><h2>位置数据与隐私保护<div class="tags"><span class="st st-base">● 必做</span></div></h2></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:22%">阶段</th><th style="width:34%">展示内容</th><th>处理规则</th></tr></thead>
+        <tbody>
+          <tr><td class="k">用户浏览阶段</td><td>不展示用户位置</td><td>只展示个体商户服务区域。</td></tr>
+          <tr><td class="k">下单阶段</td><td>用户填写或定位服务位置</td><td>需用户授权与用途说明。</td></tr>
+          <tr><td class="k">接单前</td><td>只展示大致区域</td><td>不展示门牌号与完整联系方式。</td></tr>
+          <tr><td class="k">接单后</td><td>展示完整服务地址</td><td>仅用于本订单履约。</td></tr>
+          <tr><td class="k">服务完成后</td><td>隐藏部分地址</td><td>减少长期暴露风险。</td></tr>
+          <tr><td class="k">后台查看</td><td>授权运维人员可查</td><td>必须记录查看日志。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 12 兜底 -->
+  <section class="sec" id="s12">
+    <div class="sh"><div class="sn">12</div><h2>平台责任边界 · 服务质量兜底<div class="tags"><span class="st st-ok">✓ 已确认</span></div></h2></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:22%">选项</th><th style="width:32%">含义</th><th style="width:22%">风险</th><th>建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">不兜底，仅投诉协调</td><td>提供投诉通道、证据留痕、规则内协调</td><td>用户保障感较弱</td><td><span class="rec">第一版推荐</span></td></tr>
+          <tr><td class="k">有限兜底</td><td>规则内小额补偿或平台券</td><td>需预算与规则</td><td><span class="no2">第二版考虑</span></td></tr>
+          <tr><td class="k">平台赔付</td><td>平台对服务质量承担赔付</td><td>平台责任大幅上升</td><td><span class="no2">不建议</span></td></tr>
+          <tr><td class="k">保险机制</td><td>通过保险覆盖部分风险</td><td>需保险产品与本地合作</td><td><span class="no2">以后考虑</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout green"><b>建议默认：</b>第一版平台不承诺服务质量全责兜底，只做投诉协调、规则内处理、证据留痕、账号处罚与必要退款协助。涉及违法的，依法配合监管。</div>
+    </div>
+  </section>
+
+  <!-- 13 三端功能清单 -->
+  <section class="sec" id="s13">
+    <div class="sh"><div class="sn">13</div><h2>三端功能清单<div class="tags"><span class="st st-base">● 必做</span></div></h2></div>
+    <div class="body">
+      <h3 class="sub">13.1　用户端</h3>
+      <table>
+        <thead><tr><th style="width:24%">模块</th><th>第一版功能</th></tr></thead>
+        <tbody>
+          <tr><td class="k">登录注册</td><td>蒙古国手机号验证登录。</td></tr>
+          <tr><td class="k">服务浏览</td><td>查看服务类目、商户列表与详情、价格、评价、认证状态。</td></tr>
+          <tr><td class="k">下单</td><td>选服务、选商户、填时间与位置、确认价格、提交订单。</td></tr>
+          <tr><td class="k">支付</td><td>在线支付、查看支付状态。</td></tr>
+          <tr><td class="k">订单</td><td>查看待确认 / 已接单 / 服务中 / 已完成 / 退款中 / 争议中订单。</td></tr>
+          <tr><td class="k">确认</td><td>确认服务开始、确认服务完成。</td></tr>
+          <tr><td class="k">退款与投诉</td><td>申请退款、提交投诉、查看处理状态。</td></tr>
+          <tr><td class="k">评价</td><td>评分、文字评价。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">13.2　个体商户端</h3>
+      <table>
+        <thead><tr><th style="width:24%">模块</th><th>第一版功能</th></tr></thead>
+        <tbody>
+          <tr><td class="k">登录注册</td><td>蒙古国手机号验证登录。</td></tr>
+          <tr><td class="k">入驻资料</td><td>真实姓名、手机号、身份资料、展示照片、收款账户、税务声明。</td></tr>
+          <tr><td class="k">从业资料</td><td>按服务类目上传从业 / 资质材料。</td></tr>
+          <tr><td class="k">服务设置</td><td>选类目、设服务项目、服务区域、价格、可服务时间。</td></tr>
+          <tr><td class="k">订单处理</td><td>查看订单、接单、拒单、开始服务、完成服务。</td></tr>
+          <tr><td class="k">收入查看</td><td>订单收入、平台服务费、结算状态。</td></tr>
+          <tr><td class="k">投诉处理</td><td>查看投诉、提交说明、上传证据。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">13.3　运营端</h3>
+      <table>
+        <thead><tr><th style="width:24%">模块</th><th>第一版功能</th></tr></thead>
+        <tbody>
+          <tr><td class="k">商户审核</td><td>审核身份资料、手机号、展示资料、收款账户、税务声明。</td></tr>
+          <tr><td class="k">类目审核</td><td>审核商户申请的服务类目与从业资料。</td></tr>
+          <tr><td class="k">高关注类目配置</td><td>配置是否开放、允许地点、允许时间、资料要求、下单确认、投诉分类。</td></tr>
+          <tr><td class="k">订单异常处理</td><td>查看状态、处理取消、拒单、超时、争议。</td></tr>
+          <tr><td class="k">退款处理</td><td>查看退款申请、双方说明、证据与结果。</td></tr>
+          <tr><td class="k">投诉处理</td><td>查看投诉、分类、证据、处理动作。</td></tr>
+          <tr><td class="k">财务查看</td><td>订单金额、平台服务费、商户应收、退款与结算状态。</td></tr>
+          <tr><td class="k">日志查看</td><td>订单状态日志、审核日志、后台操作日志、支付回调日志。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 14 范围 -->
+  <section class="sec" id="s14">
+    <div class="sh"><div class="sn">14</div><h2>第一版开发范围</h2></div>
+    <div class="body">
+      <h3 class="sub">14.1　必须开发</h3>
+      <table>
+        <thead><tr><th style="width:24%">模块</th><th>必须内容</th></tr></thead>
+        <tbody>
+          <tr><td class="k">三端网页</td><td>用户端、个体商户端、运营端。</td></tr>
+          <tr><td class="k">手机号登录</td><td>蒙古国手机号验证登录（运营端更严格）。</td></tr>
+          <tr><td class="k">商户入驻</td><td>身份、手机号、收款账户、税务声明、从业资料、服务类目。</td></tr>
+          <tr><td class="k">服务类目配置</td><td>类目开关、资料要求、审核要求、地点规则、时间规则。</td></tr>
+          <tr><td class="k">高关注类目可配置</td><td>含正规按摩，按可配置机制实现。</td></tr>
+          <tr><td class="k">订单流程</td><td>用户选服务与商户后下单，商户接单或拒单，金额锁定。</td></tr>
+          <tr><td class="k">支付记录</td><td>支付发起、状态、退款状态、支付回调。</td></tr>
+          <tr><td class="k">财务记录</td><td>订单金额、平台服务费、商户应收、结算状态。</td></tr>
+          <tr><td class="k">投诉与退款</td><td>用户申请、商户说明、运营端处理。</td></tr>
+          <tr><td class="k">日志</td><td>订单状态、审核、后台操作、支付回调日志。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">14.2　暂不开发</h3>
+      <table>
+        <thead><tr><th style="width:34%">暂不开发内容</th><th>原因</th></tr></thead>
+        <tbody>
+          <tr><td class="k">多人报价</td><td>不符合当前最简单订单模式。</td></tr>
+          <tr><td class="k">平台自动派单</td><td>增加责任风险。</td></tr>
+          <tr><td class="k">平台钱包</td><td>支付与资金沉淀风险高。</td></tr>
+          <tr><td class="k">平台统一开税务凭证</td><td>改变平台税务主体边界。</td></tr>
+          <tr><td class="k">平台代缴商户税款</td><td>平台责任过重。</td></tr>
+          <tr><td class="k">微信小程序 / 原生手机应用</td><td>第一版先做网页版。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 15 风险矩阵 -->
+  <section class="sec" id="s15">
+    <div class="sh"><div class="sn">15</div><h2>风险矩阵</h2></div>
+    <div class="body">
+      <h3 class="sub">15.1　高风险</h3>
+      <table>
+        <thead><tr><th style="width:18%">风险</th><th style="width:24%">触发条件</th><th style="width:26%">影响</th><th>处理建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">平台沉淀资金</td><td>平台代收后再结算</td><td>支付、清算、备付金、反洗钱、审计风险上升</td><td>优先本地支付机构分账。</td></tr>
+          <tr><td class="k">税务主体改变</td><td>平台统一向用户开凭证</td><td>平台可能被理解为销售主体</td><td>第一版各开各的。</td></tr>
+          <tr><td class="k">服务场景错配</td><td>未按监管 / 法务要求配置地点、时间、资料</td><td>影响合规与运营安全</td><td>高关注类目必须支持后台配置与审核。</td></tr>
+          <tr><td class="k">冒名 / 转单</td><td>接单人不是上门人</td><td>身份审核失效，责任不清</td><td>本人到场，禁冒名、转单、结伴。</td></tr>
+          <tr><td class="k">用户位置泄露</td><td>接单前展示完整地址</td><td>隐私与安全风险</td><td>接单后才展示完整地址。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">15.2　中风险</h3>
+      <table>
+        <thead><tr><th style="width:20%">风险</th><th style="width:38%">触发条件</th><th>处理建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">价格纠纷</td><td>现场加价或服务范围不清</td><td>下单金额锁定，变价须用户确认。</td></tr>
+          <tr><td class="k">私下交易</td><td>用户与商户绕开平台</td><td>平台内沟通留痕，违规处罚。</td></tr>
+          <tr><td class="k">凭证争议</td><td>用户要凭证，个体商户无法提供</td><td>展示个体商户凭证能力，平台只处理自身费用凭证。</td></tr>
+          <tr><td class="k">频繁拒单</td><td>个体商户接单不稳定</td><td>记录拒单率，影响展示排序。</td></tr>
+          <tr><td class="k">服务质量纠纷</td><td>高关注类目资质或健康证审核不严</td><td>强制资质审核、过程留痕、投诉协调。</td></tr>
+          <tr><td class="k">关键条款误译</td><td>英文 / 中文 / 西里尔蒙古文含义不一致</td><td>关键条款必须人工审核。</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub">15.3　低风险</h3>
+      <table>
+        <thead><tr><th style="width:30%">事项</th><th>处理</th></tr></thead>
+        <tbody>
+          <tr><td class="k">分类 / 类目 / 城市扩展</td><td>预留字段，灰度上线。</td></tr>
+          <tr><td class="k">界面与价格展示优化</td><td>按反馈调整。</td></tr>
+          <tr><td class="k">新增语言</td><td>在既有多语言框架内扩展。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 16 推荐方案总表 -->
+  <section class="sec" id="s16">
+    <div class="sh"><div class="sn">16</div><h2>第一版方案 · 总表</h2></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:22%">模块</th><th>推荐默认</th></tr></thead>
+        <tbody>
+          <tr><td class="k">地区</td><td>乌兰巴托。</td></tr>
+          <tr><td class="k">入口端</td><td>用户端、个体商户端、运营端，先做网页版。</td></tr>
+          <tr><td class="k">登录</td><td>手机号验证登录；运营端账号密码 + 手机号验证。</td></tr>
+          <tr><td class="k">语言</td><td>先英文开发，中文辅助对照，最后翻译西里尔蒙古文。</td></tr>
+          <tr><td class="k">币种</td><td>付款、记账、结算均用蒙古图格里克。</td></tr>
+          <tr><td class="k">定价</td><td>平台参考价范围，个体商户在范围内修改，下单金额锁定。</td></tr>
+          <tr><td class="k">订单</td><td>用户选个体商户与服务后下单。</td></tr>
+          <tr><td class="k">清算</td><td><span class="recl">选项一</span> 优先本地持牌支付机构支付、分账、退款。</td></tr>
+          <tr><td class="k">税务</td><td><span class="recl">各开各的</span> 平台不为商户代缴税款。</td></tr>
+          <tr><td class="k">商户审核</td><td>身份、真实姓名、手机号、收款账户、税务声明、从业资料。</td></tr>
+          <tr><td class="k">本人到场</td><td>必须本人到场，禁冒名、转单、结伴。</td></tr>
+          <tr><td class="k">服务质量</td><td>平台不兜底，仅投诉协调与规则内处理。</td></tr>
+          <tr><td class="k">高关注类目</td><td><span class="cfgtag">⚙ 可配置</span> 作为正常类目开发；是否开放、地点、时间、资质、下单确认、投诉分类均后台可配，按法务 / 监管口径开启。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<div class="foot">
+  <p><b>免责与边界：</b>本文是产品、技术与责任边界的对照文档，<b>不构成法律、税务或支付合规意见</b>。涉及蒙古国法律、个人数据保护、税务（含电子税票）、持牌支付机构、银行清算、平台用工等，必须经蒙古国本地律师、会计师与持牌支付机构核实后定稿。本轮未联网核验上述具体规则。第一版优先最小可行系统，钱包余额、会员、复杂广告、多级分销、自动报税、全国城市、传统蒙古文、原生应用等默认不进第一版。</p>
+</div>
+
+<button id="top" aria-label="回到顶部" onclick="window.scrollTo({top:0})">↑</button>
+<script>
+  var t=document.getElementById('top');
+  addEventListener('scroll',function(){ t.classList.toggle('show', scrollY>500); },{passive:true});
+</script>
+</body>
+</html>
